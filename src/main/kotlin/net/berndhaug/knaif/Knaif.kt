@@ -57,7 +57,7 @@ fun writeCommandsFile(inputPath: Path, contents: String): File {
     val inputBasename = inputPath.fileName
     val inputDir = inputPath.parent ?: FileSystems.getDefault().getPath(".")
     val directionsPath = inputDir.resolve("$inputBasename.cutDecisions")
-    Files.newOutputStream(directionsPath, *arrayOf()).buffered().writer().use {
+    Files.newOutputStream(directionsPath, *arrayOf(StandardOpenOption.CREATE_NEW)).buffered().writer().use {
         it.write(contents)
     }
     return directionsPath.toFile()
