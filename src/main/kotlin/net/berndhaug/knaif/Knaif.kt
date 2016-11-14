@@ -64,7 +64,7 @@ fun writeCommandsFile(inputPath: Path, contents: String): File {
 }
 
 fun runExtract(commandFile: File, outputName: String) =
-        ProcessBuilder("ffmpeg",
+        if (File(outputName).exists()) false else ProcessBuilder("ffmpeg",
                 "-f",
                 "concat",
                 "-i",
@@ -84,8 +84,6 @@ fun main(args: Array<String>) {
     LOGGER.info("Cutting [$inFile] into [$outFile] according to [$cutFile].")
 
     val inputPath = FileSystems.getDefault().getPath(inFile)
-    val inputBasename = inputPath.fileName
-    val inputDirName = inputPath.parent ?: "."
 
     val cutDurations = durationsFromCuttingDirections(cutFile)
     val keepDurations = invertDurations(cutDurations)
