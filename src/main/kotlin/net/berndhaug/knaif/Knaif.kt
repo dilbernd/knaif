@@ -41,7 +41,7 @@ fun invertDurations(durations: List<Duration>): List<Duration> {
                     remaining.subList(1, remaining.size))
         }
     }
-    return invert(listOf(), 0, durations)
+    return invert(listOf(), 0, durations).filter { d -> d.from < d.to }
 }
 
 fun makeCommands(inputName: String, sequences: List<Duration>): String {
